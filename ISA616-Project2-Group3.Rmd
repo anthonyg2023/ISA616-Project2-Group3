@@ -1,0 +1,14 @@
+---
+title: "ISA616-Project2-Group3"
+author: "Nate Bosworth"
+date: "2023-10-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Business Value Proposition
+
+![](images/BusValPropGroup3.jpg)
