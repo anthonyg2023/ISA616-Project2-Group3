@@ -8,7 +8,13 @@ Annually, the FSB conducts a senior survey of graduates to learn of their employ
 
 The data are anonymized, however it is possible that if you look hard enough, you can identify students.  You are bound, ethically not to do so.  It is a strict ethical code that you will not discuss individual data points with ANYONE except for me and your team.  Failure to comply with this code of ethics will result in a failing grade in the course.  
 
-## Data Sources test test test
+## What we hope to accomplish
+
+We hope to provide a statistical model/models that show the relationship between student internships and their respective job offers and salaries. We want this model/models to provide FSB with a better understanding of how one or two internships affect job placement and whether internships provide students with higher salary job positions.
+
+We hope our model can also help FSB to market themselves as a top business school to prospective students.
+
+## Data Sources
 
 You have three years of data representing FSB graduates, including graduates in 2019, 2020, and 2021.  The dataset provided had 42 variables.  The source is either derived by me during data cleaning/merging, from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.  I have cleaned and merged the files into one file.  
 
