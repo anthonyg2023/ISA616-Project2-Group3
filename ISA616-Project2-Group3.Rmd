@@ -11,4 +11,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Business Value Proposition
 
-![](images/BusValPropGroup3.jpg)
+![](images/BusValPropGroup3-01.jpg)
