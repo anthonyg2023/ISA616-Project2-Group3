@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Audience and Purpose
-The purpose of this analysis is to provide information on the relationship between number of internships and full time job placement characteristics (salary, preferred location/field) to FSB Career Services.
+The purpose of this analysis is to provide information on the relationship between number of internships and full time job placement characteristics (salary, preferred location/field) to FSB Career Services. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
 
 
 ## Business Value Proposition
