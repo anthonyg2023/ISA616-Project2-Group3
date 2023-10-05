@@ -28,7 +28,26 @@ The purpose of this analysis is to provide information on the relationship betwe
 pacman::p_load(tidyverse)
 fsb <- FSB_BI_Survey_2019_2021
 
-unique(fsb$survey_internships)
+unique(fsb$survey_state).coun
 table(fsb$survey_internships)
+```
+
+```{r}
+table(fsb$survey_state)
+```
+
+
+```{r}
+```
+
+
+
+
+
+```{r}
+afj <- fsb[which(fsb$survey_plans == c("accepted fulltime job")),]
+se <- fsb[which(fsb$survey_plans == c("seeking employment")),]
+
+fsb3 <- rbind(afj, se)
 ```
 
