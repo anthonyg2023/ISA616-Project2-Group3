@@ -1,14 +1,53 @@
 ---
 title: "ISA616-Project2-Group3"
-author: "Nate Bosworth"
-date: "2023-10-01"
-output: html_document
+author: "Nate Bosworth and Anthony Gusich"
+date: "`r format(Sys.time(), '%d %B, %Y'`"
+format:
+  html:
+    toc: True
+    toc-location: left
+    toc-expand: True
+    code-tools: True
+    code-fold: True
+    self-contained: True
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Audience and Purpose
+The purpose of this analysis is to provide information on the relationship between number of internships and full time job placement characteristics (salary, preferred location/field) to FSB Career Services. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
+
+
 ## Business Value Proposition
 
 ![](images/BusValPropGroup3-01.jpg)
+
+```{r}
+pacman::p_load(tidyverse)
+fsb <- FSB_BI_Survey_2019_2021
+
+unique(fsb$survey_state).coun
+table(fsb$survey_internships)
+```
+
+```{r}
+table(fsb$survey_state)
+```
+
+
+```{r}
+```
+
+
+
+
+
+```{r}
+afj <- fsb[which(fsb$survey_plans == c("accepted fulltime job")),]
+se <- fsb[which(fsb$survey_plans == c("seeking employment")),]
+
+fsb3 <- rbind(afj, se)
+```
+
