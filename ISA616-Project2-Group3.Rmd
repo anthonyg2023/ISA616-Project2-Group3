@@ -26,9 +26,9 @@ The purpose of this analysis is to provide information on the relationship betwe
 
 ```{r}
 pacman::p_load(tidyverse)
-fsb <- FSB_BI_Survey_2019_2021
+fsb <- data
 
-unique(fsb$survey_state).coun
+
 table(fsb$survey_internships)
 ```
 
@@ -50,4 +50,10 @@ se <- fsb[which(fsb$survey_plans == c("seeking employment")),]
 
 fsb3 <- rbind(afj, se)
 ```
+
+```{r}
+fsb
+
+```
+
 
