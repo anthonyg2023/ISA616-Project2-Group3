@@ -26,7 +26,10 @@ The purpose of this analysis is to provide information on the relationship betwe
 
 ```{r}
 pacman::p_load(tidyverse)
+
 fsb <- FSB_BI_Survey_2019_2021
+
+table(fsb$survey_internships)
 ```
 
 ```{r}
@@ -67,14 +70,31 @@ df <- df %>%
 
 ```{r}
 df$survey_state <- gsub("California", "CA", df$survey_state)
-
-
-
+df$survey_state <- gsub("Colorado/ United States", "CO", df$survey_state)
+df$survey_state <- gsub("Colorado", "CO", df$survey_state)
+df$survey_state <- gsub("Connecticut", "CT", df$survey_state)
+df$survey_state <- gsub("D.C.", "DC", df$survey_state)
+df$survey_state <- gsub("District of Columbia", "DC", df$survey_state)
+df$survey_state <- gsub("Florida", "FL", df$survey_state)
+df$survey_state <- gsub("Georgia, USA", "GA", df$survey_state)
+df$survey_state <- gsub("Georgia", "GA", df$survey_state)
+df$survey_state <- gsub("Illinois / USA", "IL", df$survey_state)
+df$survey_state <- gsub("Illinois, USA", "IL", df$survey_state)
+df$survey_state <- gsub("Illinois/ US", "IL", df$survey_state)
+df$survey_state <- gsub("Illinois/USA", "IL", df$survey_state)
+df$survey_state <- gsub("IL, US", "IL", df$survey_state)
+df$survey_state <- gsub("IL, USA", "IL", df$survey_state)
+df$survey_state <- gsub("IL/ USA", "IL", df$survey_state)
+df$survey_state <- gsub("IL/USA", "IL", df$survey_state)
+df$survey_state <- gsub("IL, United States", "IL", df$survey_state)
+df$survey_state <- gsub("iL", "IL", df$survey_state)
+df$survey_state <- gsub("Il", "IL", df$survey_state)
+df$survey_state <- gsub("illinois", "IL", df$survey_state)
+df$survey_state <- gsub("Illinois", "IL", df$survey_state)
+df$survey_state <- gsub("ILlinois", "IL", df$survey_state)
 
 
 
 table(df$survey_state)
 ```
-
-
 
