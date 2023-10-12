@@ -1,7 +1,7 @@
 ---
 title: "ISA616-Project2-Group3"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: "Nate Bosworth and Anthony Gusich"
-date: "`r format(Sys.time(), '%d %B, %Y'`"
 format:
   html:
     toc: True
@@ -13,7 +13,7 @@ format:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, messages = F, warning = F)
 ```
 
 ## Audience and Purpose
@@ -24,52 +24,67 @@ The purpose of this analysis is to provide information on the relationship betwe
 
 ![](images/BusValPropGroup3-01.jpg)
 
+## Data Description
+Annually, the FSB conducts a senior survey of graduates to learn of their employment status. In addition, information is verified using LinkedIn and employer survey information. The data contains data on graduates for 2019, 2020, and 2021. The data are merged from two sources: the senior survey, and data from the Miami University database.
+
+
+
+## load packages and print session info
 ```{r}
 pacman::p_load(tidyverse)
 
-fsb <- FSB_BI_Survey_2019_2021
-
-table(fsb$survey_internships)
+sessionInfo()
 ```
 
+## Change name of data
 ```{r}
-## subset dataframe into columns we need
+fsb <- readRDS("FSB_BI_Survey_2019_2021.rds")
+```
+
+
+# Data Cleaning
+
+## Subset dataframe into columns we need
+**Justification: We created a subset of the data to only include the 3 variables we want in our model. We kept the survey_internships so we have the number of internships the student had, we kept the survey_salary so we can find the effect that number of internships has on salary and lastly we kept survey_state in order to keep state constant in our model so we can only focus on the effect of number of internships on salary.**
+```{r}
 df <- fsb[, c('survey_internships', 'survey_salary', 'survey_state')]
 ```
 
 
+## Remove rows with NA salary
+**Justification: We removed the null values from survey_salary because we didn’t want to include rows that don’t have a value for salary.**
 ```{r}
-## remove rows with NA salary
 df <- df[!is.na(df$survey_salary), ]
 ```
 
 
-
-
-
+## Define rows to remove and remove them from the data
+**Justification: We removed values in survey_state that were practically null values. Many responses had either NA, TBD, TBA, or only included USA/United States. These responses do not provide much value to our model so we decided it was best to remove them.**
 ```{r}
-
-## define values to remove from state
 to_remove <- c("Remote", "na", "NA", "TBA / USA", "TBD", "United States", "US", "USA")
 
-## update df to exclude useless state values
 df <- df %>%
   filter(!survey_state %in% to_remove)
 ```
 
+
+## Set N/A internship values to 0 and remove RPT row
+**Justification: We set all null values in the survey_internships column to 0. There was also an N/A and “RPT” response, so we set N/A to 0 and removed the row with RPT . We assumed that if the response is null that the student did not have an internship so the value should be 0.**
 ```{r}
 df$survey_internships[is.na(df$survey_internships)] <- 0
 
 df$survey_internships[df$survey_internships == "N/A"] <- 0
-## define values to remove from internships
 
-## update df to exclude useless RPT value
 df <- df %>%
   filter(!survey_internships %in% "RPT")
 ```
 
+
+## Standardize all state/country names (really annoying)
+**Justification: The responses for survey_state varied since there was not a drop down selection for State. To clean this data we set all values that relate to a state, such as “Ohio”, “Oh”, “oh”, or “Ohio/USA” to one common value of “OH”. We did the same process for each of the states.**
 ```{r}
 df$survey_state <- gsub("California", "CA", df$survey_state)
+df$survey_state <- gsub("LA", "CA", df$survey_state)
 df$survey_state <- gsub("Colorado/ United States", "CO", df$survey_state)
 df$survey_state <- gsub("Colorado", "CO", df$survey_state)
 df$survey_state <- gsub("Connecticut", "CT", df$survey_state)
@@ -82,8 +97,8 @@ df$survey_state <- gsub("Illinois / USA", "IL", df$survey_state)
 df$survey_state <- gsub("Illinois, USA", "IL", df$survey_state)
 df$survey_state <- gsub("Illinois/ US", "IL", df$survey_state)
 df$survey_state <- gsub("Illinois/USA", "IL", df$survey_state)
-df$survey_state <- gsub("IL, US", "IL", df$survey_state)
 df$survey_state <- gsub("IL, USA", "IL", df$survey_state)
+df$survey_state <- gsub("IL, US", "IL", df$survey_state)
 df$survey_state <- gsub("IL/ USA", "IL", df$survey_state)
 df$survey_state <- gsub("IL/USA", "IL", df$survey_state)
 df$survey_state <- gsub("IL, United States", "IL", df$survey_state)
@@ -92,9 +107,55 @@ df$survey_state <- gsub("Il", "IL", df$survey_state)
 df$survey_state <- gsub("illinois", "IL", df$survey_state)
 df$survey_state <- gsub("Illinois", "IL", df$survey_state)
 df$survey_state <- gsub("ILlinois", "IL", df$survey_state)
-
-
-
-table(df$survey_state)
+df$survey_state <- gsub("IN / USA", "IN", df$survey_state)
+df$survey_state <- gsub("Indiana / USA", "IN", df$survey_state)
+df$survey_state <- gsub("Indiana", "IN", df$survey_state)
+df$survey_state <- gsub("Ireland", "IR", df$survey_state)
+df$survey_state <- gsub("Kansas", "KS", df$survey_state)
+df$survey_state <- gsub("Kentucky", "KY", df$survey_state)
+df$survey_state <- gsub("Massachusetts, USA", "MA", df$survey_state)
+df$survey_state <- gsub("MA / USA", "MA", df$survey_state)
+df$survey_state <- gsub("Maine", "ME", df$survey_state)
+df$survey_state <- gsub("Michigan, Detroit", "MI", df$survey_state)
+df$survey_state <- gsub("Michigan", "MI", df$survey_state)
+df$survey_state <- gsub("MI / U.S.", "MI", df$survey_state)
+df$survey_state <- gsub("Minnesota", "MN", df$survey_state)
+df$survey_state <- gsub("Montana", "MT", df$survey_state)
+df$survey_state <- gsub("Nebraska", "NE", df$survey_state)
+df$survey_state <- gsub("New York, USA", "NY", df$survey_state)
+df$survey_state <- gsub("New York", "NY", df$survey_state)
+df$survey_state <- gsub("New york", "NY", df$survey_state)
+df$survey_state <- gsub("North Carolina", "NC", df$survey_state)
+df$survey_state <- gsub("Ohio/USA", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio/United States", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio/ United States", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio, USA", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio / USA", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio / United States", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio / The United States", "OH", df$survey_state)
+df$survey_state <- gsub("OHIO", "OH", df$survey_state)
+df$survey_state <- gsub("Ohio", "OH", df$survey_state)
+df$survey_state <- gsub("ohio", "OH", df$survey_state)
+df$survey_state <- gsub("OH/USA", "OH", df$survey_state)
+df$survey_state <- gsub("OH/Us", "OH", df$survey_state)
+df$survey_state <- gsub("OH, USA", "OH", df$survey_state)
+df$survey_state <- gsub("oh", "OH", df$survey_state)
+df$survey_state <- gsub("Oh", "OH", df$survey_state)
+df$survey_state <- gsub("Oregon", "OR", df$survey_state)
+df$survey_state <- gsub("Pennsylvania", "PA", df$survey_state)
+df$survey_state <- gsub("Rhode Island", "RI", df$survey_state)
+df$survey_state <- gsub("Tennessee", "TN", df$survey_state)
+df$survey_state <- gsub("Texas/ USA", "TX", df$survey_state)
+df$survey_state <- gsub("TX/ USA", "TX", df$survey_state)
+df$survey_state <- gsub("TX/USA", "TX", df$survey_state)
+df$survey_state <- gsub("Texas", "TX", df$survey_state)
+df$survey_state <- gsub("United Kingdom", "UK", df$survey_state)
+df$survey_state <- gsub("Virginia/ USA", "VA", df$survey_state)
+df$survey_state <- gsub("Virginia \\(VA\\)", "VA", df$survey_state)
+df$survey_state <- gsub("Virginia", "VA", df$survey_state)
+df$survey_state <- gsub("Washington DCUnited States", "DC", df$survey_state)
+df$survey_state <- gsub("Washington", "WA", df$survey_state)
+df$survey_state <- gsub("Wisconsin / USA", "WI", df$survey_state)
+df$survey_state <- gsub("Wisconsin", "WI", df$survey_state)
 ```
 
