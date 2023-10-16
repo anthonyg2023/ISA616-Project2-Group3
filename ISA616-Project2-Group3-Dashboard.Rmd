@@ -22,6 +22,18 @@ pacman::p_load(tidyverse, #for data manipulation
 
 ```
 
+# Intro
+
+**Background Information:**
+We were tasked by Kirk Bogard, the Associate Vice President for Development and External Relations at Miami University to explore a dataset of real student data in order to find relationships and patterns that he can use to give Miami a competitive advantage. After exploring the data, we found a few particular variables that can help us find a potential relationship in the dataset, survey_salary, survery_internships, and survey_state. We plan to build a regression model using the number of internships during college to predict salary after graduation, using state to control for salary. The purpose of this analysis is to provide information on the relationship between number of internships and salary information to FSB Career Services. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
+
+**Survey Overview:**
+
+**Internship Effects on Salary:**
+
+**External Research:**
+
+
 # Survey Overview {data-orientation=columns}
 
 Overview of survey responses
