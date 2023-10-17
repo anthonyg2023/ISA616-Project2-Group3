@@ -169,8 +169,10 @@ df$survey_state <- gsub("ChiUnknown", "China", df$survey_state)
 ```
 
 ```{r}
+# change internships type to factor for analysis
 df$survey_internships <- as.factor(df$survey_internships)
 
+# write to csv to import later
 write.csv(df, 'fsb_clean_data.csv')
 ```
 
