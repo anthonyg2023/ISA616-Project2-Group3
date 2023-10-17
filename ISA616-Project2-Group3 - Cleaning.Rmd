@@ -39,8 +39,6 @@ sessionInfo()
 ## Change name of data
 ```{r}
 fsb <- readRDS("FSB_BI_Survey_2019_2021.rds")
-
-fs$survery_internships %>% as.factor()
 ```
 
 
@@ -171,6 +169,8 @@ df$survey_state <- gsub("ChiUnknown", "China", df$survey_state)
 ```
 
 ```{r}
+df$survey_internships <- as.factor(df$survey_internships)
+
 write.csv(df, 'fsb_clean_data.csv')
 ```
 
