@@ -39,6 +39,8 @@ sessionInfo()
 ## Change name of data
 ```{r}
 fsb <- readRDS("FSB_BI_Survey_2019_2021.rds")
+
+fs$survery_internships %>% as.factor()
 ```
 
 
