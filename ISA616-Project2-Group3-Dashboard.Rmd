@@ -19,7 +19,7 @@ pacman::p_load(tidyverse, #for data manipulation
                )
 
 #read in data
-
+df <- read.csv('fsb_clean_data.csv')
 ```
 
 # Intro

@@ -166,7 +166,9 @@ for (i in to_change) {
 
 df$survey_state <- gsub("ChiUnknown", "China", df$survey_state)
 
+```
 
-table(df$survey_state)
+```{r}
+write.csv(df, 'fsb_clean_data.csv')
 ```
 
