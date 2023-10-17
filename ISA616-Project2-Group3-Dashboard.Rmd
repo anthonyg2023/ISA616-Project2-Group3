@@ -47,7 +47,9 @@ Overview of survey responses
 ### Usable Responses
 
 ```{r,echo=FALSE}
+nusable=nrow(internraw)
 
+valueBox(nusable, icon="fa-users")
 ```    
  
     
