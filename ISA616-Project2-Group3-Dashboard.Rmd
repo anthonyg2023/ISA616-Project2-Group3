@@ -24,7 +24,14 @@ df2 = readRDS('FSB_BI_Survey_2019_2021.rds')
 
 
 df$survey_internships = as.factor(df$survey_internships)
+
+df3 <- df %>%
+  group_by(survey_internships) %>%
+  summarize(MeanSalary = mean(survey_salary))
 ```
+
+
+
 
 # Intro
 
@@ -67,11 +74,7 @@ valueBox(nusable, icon="fa-users")
 
 ## row {data-height=600}
 
-### Internships by State
 
-```{r,echo=FALSE}
-
-```
 
 
 
@@ -100,12 +103,12 @@ p
 ### Mean Salary by Number of Internships
 
 ```{r,echo=FALSE}
-p=df %>% 
+p=df3 %>% 
   mutate(survey_internships=fct_relevel(survey_internships, "0", "1", "2", "3", "4", "5")) %>%
-  ggplot(aes(x=survey_internships, y=mean(survey_salary))) +
-  geom_bar(color="steelblue",fill="steelblue")+
+  ggplot(aes(x=survey_internships, y=MeanSalary)) +
+  geom_bar(color="steelblue",fill="steelblue",stat = "identity")+
   xlab("Num of Internships")+
-  ylab("num of responses")+
+  ylab("Average Salary")+
   theme_bw()
 
 p
@@ -122,6 +125,6 @@ p
 
 ```
 
- 
+  
 
 
