@@ -15,11 +15,12 @@ pacman::p_load(tidyverse, #for data manipulation
                plotly, #for interactive plots
                flexdashboard, #to make a dashboard
                fontawesome, #for icons
+               rvest, #for web scraping
                DT #for better tables
                )
 
 #read in data
-df <- read.csv('fsb_clean_data.csv')
+df <- read_csv('fsb_clean_data.csv', )[,2:4]
 df2 = readRDS('FSB_BI_Survey_2019_2021.rds')
 
 

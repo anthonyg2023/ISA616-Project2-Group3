@@ -1,0 +1,203 @@
+---
+title: "Dashboard Ideas"
+output: html_document
+date: "2023-10-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#package intialization
+if(require(pacman)==FALSE) install.packages("pacman")
+pacman::p_load(tidyverse, #for data manipulation
+               plotly, #for interactive plots
+               flexdashboard, #to make a dashboard
+               fontawesome, #for icons
+               rvest, #for web scraping
+               DT #for better tables
+               )
+
+#read in data
+df <- read_csv('fsb_clean_data.csv', )[,2:4]
+df2 = readRDS('FSB_BI_Survey_2019_2021.rds')
+
+
+df$survey_internships = as.factor(df$survey_internships)
+
+df3 <- df %>%
+  group_by(survey_internships) %>%
+  summarize(MeanSalary = mean(survey_salary))
+```
+
+# Intro
+
+**Background Information:**
+We were tasked by Kirk Bogard, the Associate Vice President for Development and External Relations at Miami University to explore a dataset of real student data in order to find relationships and patterns that he can use to give Miami a competitive advantage. After exploring the data, we found a few particular variables that can help us find a potential relationship in the dataset, survey_salary, survery_internships, and survey_state. We plan to build a regression model using the number of internships during college to predict salary after graduation, using state to control for salary. The purpose of this analysis is to provide information on the relationship between number of internships and salary information to FSB Career Services. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
+
+**Survey Overview:**
+
+**Internship Effects on Salary:**
+
+**External Research:**
+
+
+# Survey Overview {data-orientation=columns}
+
+Overview of survey responses
+  
+## row {data-width=300}
+
+### Usable Response %
+```{r}
+rate = round(100 * nrow(df)/nrow(df2),0)
+
+gauge(rate, min=0, max=100, symbol='%', gaugeSectors(
+  success=c(80,100), warning= c(40,79), danger=c(0,39)
+)
+      )
+```
+
+
+
+### Usable Responses
+
+```{r,echo=FALSE}
+nusable=nrow(df)
+
+valueBox(nusable, icon="fa-users")
+```    
+
+
+## row {data-height=600}
+
+
+
+
+
+### Distribution of Number of Internships
+    
+```{r,echo=FALSE}
+p=df %>% 
+  mutate(survey_internships=fct_relevel(survey_internships, "0", "1", "2", "3", "4", "5")) %>%
+  ggplot(aes(x=survey_internships)) +
+  geom_bar(color="steelblue",fill="steelblue")+
+  xlab("Num of Internships")+
+  ylab("num of responses")+
+  theme_bw()
+
+p
+
+
+```
+   
+   
+
+# Internship Effects on Salary {data-orientation=columns}
+
+## Column {data-width=400}
+
+### Mean Salary by Number of Internships
+
+```{r,echo=FALSE}
+p=df3 %>% 
+  mutate(survey_internships=fct_relevel(survey_internships, "0", "1", "2", "3", "4", "5")) %>%
+  ggplot(aes(x=survey_internships, y=MeanSalary)) +
+  geom_bar(color="steelblue",fill="steelblue",stat = "identity")+
+  xlab("Num of Internships")+
+  ylab("Average Salary")+
+  theme_bw()
+
+p
+```
+
+
+
+
+## Column {data-width=600}
+
+### Regression Model Predicting Salary by Number of Internships
+
+```{r,echo=FALSE}
+html <- read_html("https://www.zippia.com/business-major/salary/")
+
+tables <- html_table(html)
+
+salarytable <- tables[[3]][, 1:2]
+
+salarytable$`Average Business Major Salary` <- gsub(",", "", salarytable$`Average Business Major Salary`)
+salarytable$`Average Business Major Salary` <- gsub("\\$", "", salarytable$`Average Business Major Salary`)
+
+salarytable$`Average Business Major Salary` <- as.numeric(salarytable$`Average Business Major Salary`)
+
+meansalary <- mean(salarytable$`Average Business Major Salary`)
+sdsalary <- sd(salarytable$`Average Business Major Salary`)
+
+convertsalary <- function(x) {
+  1 + (x - meansalary)/meansalary
+}
+
+salarytable$SalaryScore <- lapply(salarytable$`Average Business Major Salary`, convertsalary)
+
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+salarytable$State <- gsub("California", "CA", salarytable$State)
+
+
+
+
+
+
+
+adjustsalary <- function(x) {
+  x
+}
+
+df$AdjustedSalary <- 
+```
+

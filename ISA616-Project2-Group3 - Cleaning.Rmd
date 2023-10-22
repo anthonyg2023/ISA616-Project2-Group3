@@ -61,10 +61,11 @@ df <- df[!is.na(df$survey_salary), ]
 ## Define rows to remove and remove them from the data
 **Justification: We removed values in survey_state that were practically null values. Many responses had either NA, TBD, TBA, or only included USA/United States. These responses do not provide much value to our model so we decided it was best to remove them.**
 ```{r}
-to_remove <- "Remote"
+to_remove <- c("Remote", "China", "Ireland")
 
 df <- df %>%
   filter(!survey_state %in% to_remove)
+
 ```
 
 
@@ -110,7 +111,6 @@ df$survey_state <- gsub("ILlinois", "IL", df$survey_state)
 df$survey_state <- gsub("IN / USA", "IN", df$survey_state)
 df$survey_state <- gsub("Indiana / USA", "IN", df$survey_state)
 df$survey_state <- gsub("Indiana", "IN", df$survey_state)
-df$survey_state <- gsub("Ireland", "IR", df$survey_state)
 df$survey_state <- gsub("Kansas", "KS", df$survey_state)
 df$survey_state <- gsub("Kentucky", "KY", df$survey_state)
 df$survey_state <- gsub("Massachusetts, USA", "MA", df$survey_state)
@@ -158,14 +158,30 @@ df$survey_state <- gsub("Washington", "WA", df$survey_state)
 df$survey_state <- gsub("Wisconsin / USA", "WI", df$survey_state)
 df$survey_state <- gsub("Wisconsin", "WI", df$survey_state)
 
+df$state[is.na(df$survey_state)] <- "Unknown"
+
 to_change <- c("na", "NA", "TBA / USA", "TBD", "United States", "USA", "US")
 
 for (i in to_change) {
   df$survey_state <- gsub(i, "Unknown", df$survey_state, fixed = T)
 }
 
-df$survey_state <- gsub("ChiUnknown", "China", df$survey_state)
+table(df$survey_state)
 
+```
+
+```{r}
+data <- df %>% 
+  group_by(survey_state) %>% 
+  summarize((meansalary = mean(survey_salary)))
+
+sum(is.na(df$survey_state))
+```
+
+```{r}
+data2 <- df %>% 
+  group_by(survey_internships) %>% 
+  summarize((meansalary = mean(survey_salary)))
 ```
 
 ```{r}
