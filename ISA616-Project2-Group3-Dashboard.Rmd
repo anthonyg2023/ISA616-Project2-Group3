@@ -100,7 +100,15 @@ p
 ### Mean Salary by Number of Internships
 
 ```{r,echo=FALSE}
+p=df %>% 
+  mutate(survey_internships=fct_relevel(survey_internships, "0", "1", "2", "3", "4", "5")) %>%
+  ggplot(aes(x=survey_internships, y=mean(survey_salary))) +
+  geom_bar(color="steelblue",fill="steelblue")+
+  xlab("Num of Internships")+
+  ylab("num of responses")+
+  theme_bw()
 
+p
 ```
 
 
