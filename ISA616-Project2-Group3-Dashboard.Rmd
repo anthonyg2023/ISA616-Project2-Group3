@@ -123,6 +123,8 @@ p
 ### Regression Model Predicting Salary by Number of Internships
 
 ```{r,echo=FALSE}
+lm = lm(df$survey_salary~df$survey_internships)
+summary(lm)
 
 ```
 
