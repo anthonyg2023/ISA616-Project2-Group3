@@ -43,6 +43,20 @@ We were tasked by Kirk Bogard, the Associate Vice President for Development and 
 
 **Internship Effects on Salary:**
 
+Using a regression model we predicted salary by number of internships using 0 internships as a baseline.
+
+* Having 1 internship increases the predicted salary by $5243 compared to 0 internships
+
+* Having 2 internships increases the predicted salary by $7775 compared to 0 internships
+
+* Having 3 internships increases the predicted salary by $9873 compared to 0 internships
+
+* Having 4 internships increases the predicted salary by $9894 compared to 0 internships
+
+* Having 5 internships increases the predicted salary by $9388 compared to 0 internships
+
+There is a sizable increase in salary when adding another internship up until 3 internships, 4 internships is about the same as 3 internships and 5 internships even drops the predicted salary.
+
 **External Research:**
 
 
