@@ -40,8 +40,15 @@ df3 <- df %>%
 We were tasked by Kirk Bogard, the Associate Vice President for Development and External Relations at Miami University to explore a dataset of real student data in order to find relationships and patterns that he can use to give Miami a competitive advantage. After exploring the data, we found a few particular variables that can help us find a potential relationship in the dataset, survey_salary, survery_internships, and survey_state. We plan to build a regression model using the number of internships during college to predict salary after graduation, using state to control for salary. The purpose of this analysis is to provide information on the relationship between number of internships and salary information to FSB Career Services. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
 
 **Survey Overview:**
+Usable Response %: Our initial dataset included information on much more than just internship and salary information, and as such there were observations that provided no meaningful information to our model. After removing these observations (e.g. those without a reported salary after graduation, unreported number of internships, unreported starting location), the dataset shrunk to a bit over 50% of the original size. Out of 3235 original observations, we were left with little over 1700 to work with.
+
+Distribution of Number of Internships: To understand the data a bit better, we wanted to explore how many internships students were completing before going into the job force. According to this basic histogram, most students completed 1 or 2 internships, followed by 3, while 0,4, and 5 had fairly few instances. The distribution looks relatively normal, but seems to be skewed slightly right.
+
 
 **Internship Effects on Salary:**
+Mean Salary by Number of Internships: This is a bar chart depicting the average salary after graduation grouped by the number of internships they completed. What we see from this graph is that salary increases a bit for each additional internship completed up to 3 internships, after which average salary levels out. We expected salary to generally increase after an additional internship is completed, and the chart seems to support this. However, it is interesting to see that having additional internships after completing 3 does not seem to have an effect on salary, even lowering expected salary with 5 internships (potentially due to there being so few observations with 5 internships). This could indicate you do not need more than 3 internships if you want to maximize salary after graduation. 
+
+Regression Model Predicting Salary by Number of Internships:
 
 Using a regression model we predicted salary by number of internships using 0 internships as a baseline.
 
@@ -56,9 +63,6 @@ Using a regression model we predicted salary by number of internships using 0 in
 * Having 5 internships increases the predicted salary by $9388 compared to 0 internships
 
 There is a sizable increase in salary when adding another internship up until 3 internships, 4 internships is about the same as 3 internships and 5 internships even drops the predicted salary.
-
-**External Research:**
-
 
 # Survey Overview {data-orientation=columns}
 
