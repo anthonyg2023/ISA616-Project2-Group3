@@ -71,7 +71,7 @@ Overview of survey responses
 ## row {data-width=300}
 
 ### Usable Response %
-```{r}
+```{r, echo=FALSE}
 rate = round(100 * nrow(df)/nrow(df2),0)
 
 gauge(rate, min=0, max=100, symbol='%', gaugeSectors(
