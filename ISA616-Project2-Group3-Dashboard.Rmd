@@ -20,11 +20,12 @@ pacman::p_load(tidyverse, #for data manipulation
                )
 
 #read in data
-df <- read_csv('fsb_clean_data.csv', )[,2:4]
+df <- read_csv('fsb_clean_data.csv', )[,-1]
 df2 = readRDS('FSB_BI_Survey_2019_2021.rds')
 
 
-df$survey_internships = as.factor(df$survey_internships)
+df$survey_internships <- as.factor(df$survey_internships)
+df$survey_state <- fct_relevel(df$survey_state, "IL", after = 1)
 
 df3 <- df %>%
   group_by(survey_internships) %>%
@@ -117,7 +118,7 @@ p
 
 # Internship Effects on Salary {data-orientation=columns}
 
-## Column {data-width=400}
+## Column {data-width=300}
 
 ### Mean Salary by Number of Internships
 
@@ -136,16 +137,31 @@ p
 
 
 
-## Column {data-width=600}
+## Column {data-width=350}
 
-### Regression Model Predicting Salary by Number of Internships
-
+### Regression Model Predicting Salary by Control Variables
 ```{r,echo=FALSE}
-lm = lm(df$survey_salary~df$survey_internships)
-summary(lm)
+## regression with control variables only
+formula_control <- formula(survey_salary~survey_state+major1+`Combined Bacc and Masters`+ 
+             `Dean's List`+`First Generation College Stdnt`+`FSB Scholars`+`Honors Program`+ 
+             `President's List`+`Cum Laude`+`Magna Cum Laude`+`Summa Cum Laude`+`University Honors`+
+             `UniversityHonors w/Distinction`+`minor1`+IPEDS.Race.Ethnicity+Gender+GPA.Range)
 
+lm1 = lm(formula_control, data = df)
+summary(lm1)
 ```
 
-  
+## Column {data-width=350}
+### Regression Model Predicting Salary by Internships
+```{r, echo=FALSE}
+## regression with variable of interest
+formula_interest <- formula(survey_salary~survey_internships+survey_state+major1+`Combined Bacc and Masters`+ 
+             `Dean's List`+`First Generation College Stdnt`+`FSB Scholars`+`Honors Program`+ 
+             `President's List`+`Cum Laude`+`Magna Cum Laude`+`Summa Cum Laude`+`University Honors`+
+             `UniversityHonors w/Distinction`+`minor1`+IPEDS.Race.Ethnicity+Gender+GPA.Range)
+
+lm2 = lm(formula_interest, data = df)
+summary(lm2)
+```
 
 

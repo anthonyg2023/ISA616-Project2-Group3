@@ -47,7 +47,13 @@ fsb <- readRDS("FSB_BI_Survey_2019_2021.rds")
 ## Subset dataframe into columns we need
 **Justification: We created a subset of the data to only include the 3 variables we want in our model. We kept the survey_internships so we have the number of internships the student had, we kept the survey_salary so we can find the effect that number of internships has on salary and lastly we kept survey_state in order to keep state constant in our model so we can only focus on the effect of number of internships on salary.**
 ```{r}
-df <- fsb[, c('survey_internships', 'survey_salary', 'survey_state')]
+columns <- c('survey_internships', 'survey_salary', 'survey_state', 'major1', 'Combined Bacc and Masters', 
+             "Dean's List", 'First Generation College Stdnt', 'FSB Scholars', "Honors Program", 
+             "President's List", "Cum Laude", "Magna Cum Laude", "Summa Cum Laude", "University Honors",
+             "UniversityHonors w/Distinction", "minor1", "IPEDS.Race.Ethnicity", "Gender", "GPA.Range")
+colnames(fsb)
+
+df <- fsb[, columns]
 ```
 
 
@@ -61,7 +67,7 @@ df <- df[!is.na(df$survey_salary), ]
 ## Define rows to remove and remove them from the data
 **Justification: We removed values in survey_state that were practically null values. Many responses had either NA, TBD, TBA, or only included USA/United States. These responses do not provide much value to our model so we decided it was best to remove them.**
 ```{r}
-to_remove <- c("Remote", "China", "Ireland")
+to_remove <- c("Remote", "China", "Ireland", "United Kingdom")
 
 df <- df %>%
   filter(!survey_state %in% to_remove)
@@ -149,7 +155,6 @@ df$survey_state <- gsub("Texas/ USA", "TX", df$survey_state)
 df$survey_state <- gsub("TX/ USA", "TX", df$survey_state)
 df$survey_state <- gsub("TX/USA", "TX", df$survey_state)
 df$survey_state <- gsub("Texas", "TX", df$survey_state)
-df$survey_state <- gsub("United Kingdom", "UK", df$survey_state)
 df$survey_state <- gsub("Virginia/ USA", "VA", df$survey_state)
 df$survey_state <- gsub("Virginia \\(VA\\)", "VA", df$survey_state)
 df$survey_state <- gsub("Virginia", "VA", df$survey_state)
@@ -158,7 +163,7 @@ df$survey_state <- gsub("Washington", "WA", df$survey_state)
 df$survey_state <- gsub("Wisconsin / USA", "WI", df$survey_state)
 df$survey_state <- gsub("Wisconsin", "WI", df$survey_state)
 
-df$state[is.na(df$survey_state)] <- "Unknown"
+df$survey_state[is.na(df$survey_state)] <- "Unknown"
 
 to_change <- c("na", "NA", "TBA / USA", "TBD", "United States", "USA", "US")
 
@@ -166,28 +171,18 @@ for (i in to_change) {
   df$survey_state <- gsub(i, "Unknown", df$survey_state, fixed = T)
 }
 
+states <- c(names(table(df$survey_state))[1:9], names(table(df$survey_state))[11:27], names(table(df$survey_state))[29:33], 
+  names(table(df$survey_state))[35:38])
+
+for (state in states) {
+  df$survey_state <- gsub(state, "Other", df$survey_state)
+}
+
 table(df$survey_state)
-
 ```
 
-```{r}
-data <- df %>% 
-  group_by(survey_state) %>% 
-  summarize((meansalary = mean(survey_salary)))
-
-sum(is.na(df$survey_state))
-```
 
 ```{r}
-data2 <- df %>% 
-  group_by(survey_internships) %>% 
-  summarize((meansalary = mean(survey_salary)))
-```
-
-```{r}
-# change internships type to factor for analysis
-df$survey_internships <- as.factor(df$survey_internships)
-
 # write to csv to import later
 write.csv(df, 'fsb_clean_data.csv')
 ```
