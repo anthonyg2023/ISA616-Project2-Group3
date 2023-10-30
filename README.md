@@ -8,6 +8,25 @@ Annually, the FSB conducts a senior survey of graduates to learn of their employ
 
 The data are anonymized, however it is possible that if you look hard enough, you can identify students.  You are bound, ethically not to do so.  It is a strict ethical code that you will not discuss individual data points with ANYONE except for me and your team.  Failure to comply with this code of ethics will result in a failing grade in the course.  
 
+
+## File Description
+
+Data Cleaning RMD:
+
+* We created a data cleaning R Markdown in order to clean the raw student data. We only kept the variables and observations that made sense for our data description and regression. We exported our clean data into a csv file in order to use it in our dashboard and regression model.
+
+Introduction RMD:
+
+* We used a separate R Markdown file to incorporate some introductory items. This Markdown had our Business Value Proposition, Data Description of the variables we used, and our audience and purpose.
+
+Dashboard:
+
+* This R Markdown file contained all of the code needed to create our dashboard including some data description graphs, as well as our final regression model to predict salary from the number of internships.
+
+## Order of Files to run
+
+* The first file that needs ran is the data cleaning file, this file cleans the data into the variables and observations that we use in our dashboard and regression model. After this file is ran the dashboard and regression model will be able to run in our Dashboard RMD, the intro RMD can be viewed at all times without needing a previous file to be ran.
+
 ## What we hope to accomplish
 
 We hope to provide a statistical model/models that show the relationship between student internships and their respective job offers and salaries. We want this model/models to provide FSB with a better understanding of how one or two internships affect job placement and whether internships provide students with higher salary job positions.
