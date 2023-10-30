@@ -53,17 +53,17 @@ Regression Model Predicting Salary by Number of Internships:
 
 Using a regression model we predicted salary by number of internships using 0 internships as a baseline.
 
-* Having 1 internship increases the predicted salary by $5243 compared to 0 internships
+* Having 1 internship increases the predicted salary by $3605 compared to 0 internships
 
-* Having 2 internships increases the predicted salary by $7775 compared to 0 internships
+* Having 2 internships increases the predicted salary by $5838 compared to 0 internships
 
-* Having 3 internships increases the predicted salary by $9873 compared to 0 internships
+* Having 3 internships increases the predicted salary by $7542 compared to 0 internships
 
-* Having 4 internships increases the predicted salary by $9894 compared to 0 internships
+* Having 4 internships increases the predicted salary by $7506 compared to 0 internships
 
-* Having 5 internships increases the predicted salary by $9388 compared to 0 internships
+* Having 5 internships increases the predicted salary by $7553 compared to 0 internships, however this is not a significant predictor for salary
 
-There is a sizable increase in salary when adding another internship up until 3 internships, 4 internships is about the same as 3 internships and 5 internships even drops the predicted salary.
+There is a sizable increase in salary when adding another internship up until 3 internships, 4 internships is a slight decrease from 3 internships and 5 internships is about the same as 3 and 4, but it is not a significant predictor.
 
 # Survey Overview {data-orientation=columns}
 
