@@ -16,19 +16,6 @@ format:
 knitr::opts_chunk$set(echo = TRUE, messages = F, warning = F)
 ```
 
-## Audience and Purpose
-The purpose of this analysis is to provide information on the relationship between number of internships and full time job placement characteristics (salary, preferred location/field) to FSB Career Services. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
-
-
-## Business Value Proposition
-
-![](images/BusValPropGroup3-01.jpg)
-
-## Data Description
-Annually, the FSB conducts a senior survey of graduates to learn of their employment status. In addition, information is verified using LinkedIn and employer survey information. The data contains data on graduates for 2019, 2020, and 2021. The data are merged from two sources: the senior survey, and data from the Miami University database.
-
-
-
 ## load packages and print session info
 ```{r}
 pacman::p_load(tidyverse)
@@ -51,7 +38,6 @@ columns <- c('survey_internships', 'survey_salary', 'survey_state', 'major1', 'C
              "Dean's List", 'First Generation College Stdnt', 'FSB Scholars', "Honors Program", 
              "President's List", "Cum Laude", "Magna Cum Laude", "Summa Cum Laude", "University Honors",
              "UniversityHonors w/Distinction", "minor1", "IPEDS.Race.Ethnicity", "Gender", "GPA.Range")
-colnames(fsb)
 
 df <- fsb[, columns]
 ```
@@ -177,8 +163,6 @@ states <- c(names(table(df$survey_state))[1:9], names(table(df$survey_state))[11
 for (state in states) {
   df$survey_state <- gsub(state, "Other", df$survey_state)
 }
-
-table(df$survey_state)
 ```
 
 

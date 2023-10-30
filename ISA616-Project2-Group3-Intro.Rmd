@@ -1,0 +1,45 @@
+---
+title: "ISA616-Project2-Group3-Intro"
+output: html_document
+date: "2023-10-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Audience and Purpose
+The purpose of this analysis is to provide information on the relationship between number of internships a student completes and salary after graduation to FSB Career Services. We will use information provided from an FSB survey to control for other student characteristics and focus on the impact of internships. This will help them give more accurate guidance to students to ensure they get the best full time opportunity for them.
+
+
+## Business Value Proposition
+
+![](images/BusValPropGroup3-01.jpg)
+
+## Data Description
+Annually, the FSB conducts a senior survey of graduates to learn of their employment status. In addition, information is verified using LinkedIn and employer survey information. The data contains data on graduates for 2019, 2020, and 2021. The data are merged from two sources: the senior survey, and data from the Miami University database. After cleaning, we are left with 19 variables which are described below.
+
+
+major1: text, OBIEE, first major
+Combined Cacc and Masters: binary, OBIEE, combined degree student
+Dean's List: binary, OBIEE, achieve dean's list status at least once
+First Generation College Stdnt: binary, OBIEE, first generation student status
+FSB Scholars: binary, OBIEE, FSB scholars program
+Honors Program: binary, OBIEE, member of University honors program
+President's list: binary, OBIEE, achieved president's list at least once
+Cum Laude: binary, OBIEE, graduated Cum Laude
+Magna Cum Laude: binary, OBIEE, graduated Magna Cum Laude
+Summa Cum Laude: binary, OBIEE, graduated Summa Cum Laude
+University Honors: binary, OBIEE, graduated with University Honors
+University Honors w/Distinction: binary, OBIEE, graduated with University Honors with Distinction
+minor1: text, OBIEE, first listed minor
+IPEDS.Race.Ethnicity: text, OBIEE, race/ethnicity
+Gender: text, OBIEE, sex
+GPA.Range: text, OBIEE, GPA within a .5 range
+Survey_internships: text, survey, Student reported number of internships they held during college
+survey_salary: numeric, survey, student reported salary
+survey_state: text, survey, student reported state in which job is located
+
+
+
