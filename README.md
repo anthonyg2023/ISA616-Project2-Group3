@@ -11,6 +11,14 @@ The data are anonymized, however it is possible that if you look hard enough, yo
 
 ## File Description
 
+List of Deliverables:
+
+* Overview of the contents and purpose of each deliverable for FSB Career Services
+
+FSB_BI_Survey_2019_2021:
+
+* Original data file for analysis
+
 Data Cleaning RMD:
 
 * We created a data cleaning R Markdown in order to clean the raw student data. We only kept the variables and observations that made sense for our data description and regression. We exported our clean data into a csv file in order to use it in our dashboard and regression model.
